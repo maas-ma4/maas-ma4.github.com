@@ -267,10 +267,19 @@
     });
 </script>
 <script type="text/javascript">
-    function copyUrl(){
-        var qrcode_url=$("#czaddress").val();
-        copy(qrcode_url);
+    //function copyUrl(){
+      //  var qrcode_url=$("#czaddress").val();
+     //   copy(qrcode_url);
+  //  }
+    function copyUrl() {
+    var qrcode_url;
+    if ($('.address').is(':visible')) {
+        qrcode_url = $("#czaddress").val();
+    } else {
+        qrcode_url = $("#czaddress2").val();
     }
+    copy(qrcode_url);
+}
 
     function copy(message) {
         var input = document.createElement("input");
